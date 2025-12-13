@@ -5,6 +5,8 @@ from datetime import datetime
 
 NOME_ARQUIVO = "cardapio.json"
 
+# TESTE COMMIT
+
 # --- 1. FUNÇÃO DE EXIBIÇÃO FORMATADA ---
 def formatar_prato(prato):
     """Retorna a string formatada de um prato, incluindo o ID e Estoque."""
