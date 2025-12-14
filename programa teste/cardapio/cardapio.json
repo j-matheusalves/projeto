@@ -1,0 +1,38 @@
+{
+    "Pratos Principais": {
+        "P1": {
+            "nome": "Bife à Parmegiana",
+            "preco": 35.50,
+            "estoque": 25
+        },
+        "P2": {
+            "nome": "Salada Caesar com Frango",
+            "preco": 28.00,
+            "estoque": 30
+        }
+    },
+    "Sobremesas": {
+        "S1": {
+            "nome": "Mousse de Chocolate",
+            "preco": 15.00,
+            "estoque": 40
+        },
+        "S2": {
+            "nome": "Pudim de Leite",
+            "preco": 12.00,
+            "estoque": 35
+        }
+    },
+    "Bebidas": {
+        "B1": {
+            "nome": "Água Mineral",
+            "preco": 5.00,
+            "estoque": 100
+        },
+        "B2": {
+            "nome": "Suco de Laranja",
+            "preco": 8.00,
+            "estoque": 75
+        }
+    }
+}

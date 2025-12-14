@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cardápio</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>🍽️ Nosso Cardápio Completo</h1>
+
+        {% for categoria_com_pratos in categorias_com_pratos %}
+            <h2>{{ categoria_com_pratos.nome }}</h2>
+            
+            {% for prato in categoria_com_pratos.pratos %}
+                <div class="prato">
+                    <span class="prato-nome">{{ prato.nome }}</span>
+                    <div class="prato-preco">R$ {{ prato.preco|floatformat:2 }}</div> 
+                </div>
+            {% empty %}
+                <p>Nenhum prato nesta categoria.</p>
+            {% endfor %}
+            
+        {% endfor %}
+        <p>-- Fim do Cardápio --</p>
+    </div>
+</body>
+</html>
