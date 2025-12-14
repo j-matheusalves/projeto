@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Pedido - Garçom</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* Estilos específicos para esta página */
+        .pedido-form {
+            text-align: left;
+            padding: 20px;
+        }
+        .categoria-section {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .prato-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 5px 0;
+            border-bottom: 1px dotted #eee;
+        }
+        .prato-info {
+            flex-grow: 1;
+        }
+        .prato-info h4 {
+            margin: 0;
+            font-size: 1.1em;
+            color: #007bff;
+        }
+        .prato-info p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+        .quantidade-input {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            text-align: center;
+        }
+        .finalizar-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        .finalizar-btn:hover {
+            background-color: #218838;
+        }
+        .input-cliente {
+            width: 98%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .messages {
+            list-style: none;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .messages .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .messages .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Fazer Novo Pedido (Tela do Garçom)</h1>
+        <a href="{% url 'home' %}" style="text-decoration: none;">&larr; Voltar para o Menu Principal</a>
+
+        {% comment %} Exibe mensagens de sucesso ou erro do Django {% endcomment %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        <form method="POST" class="pedido-form">
+            {% csrf_token %}
+            
+            <label for="id_nome_cliente">Nome do Cliente / Mesa:</label>
+            <input type="text" id="id_nome_cliente" name="nome_cliente" class="input-cliente" required>
+
+            <h2>Itens Disponíveis:</h2>
+            
+            {% for categoria_item in categorias_com_pratos %}
+                <div class="categoria-section">
+                    <h3>{{ categoria_item.nome }}</h3>
+                    {% for prato in categoria_item.pratos %}
+                        <div class="prato-item">
+                            <div class="prato-info">
+                                <h4>[{{ prato.codigo_cardapio }}] {{ prato.nome }}</h4>
+                                <p>R$ {{ prato.preco|floatformat:2 }} | Estoque: {{ prato.estoque }}</p>
+                            </div>
+                            <div>
+                                <label for="id_quantidade_{{ prato.id }}">Qtd:</label>
+                                <input type="number" 
+                                       id="id_quantidade_{{ prato.id }}" 
+                                       name="quantidade_{{ prato.id }}" 
+                                       class="quantidade-input" 
+                                       min="0" 
+                                       max="{{ prato.estoque }}" 
+                                       value="0">
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p>Nenhum prato disponível nesta categoria no momento.</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="finalizar-btn">
+                Finalizar Pedido e Enviar ao Caixa
+            </button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Bem-vindo ao Restaurante</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 🎉 Bem-vindo ao Sistema de Pedidos! 🎉 🎉</h1>
+        
+        <p>Este é o painel principal do seu sistema de gestão de restaurante.</p>
+        
+        <p>
+            <a href="{% url 'cardapio' %}">Ver o Cardápio Completo</a> 
+        </p>
+        <p>
+            <a href="{% url 'fazer_pedido' %}">Abrir Tela de Pedidos (Garçom)</a>
+        </p>
+        
+        <p>Para gerenciar pratos, categorias e pedidos: <a href="/admin/">Acesse o Painel Admin</a></p>
+    </div>
+</body>
+</html>
